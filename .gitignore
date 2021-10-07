@@ -1,0 +1,26 @@
+*.pyc
+.idea/
+.env
+.bash_history
+.cache/
+.ipython/
+.coverage*
+!.coveragerc
+.local/
+.mypy_cache/
+.pytest_cache/
+.python_history
+htmlcov/
+*.ipynb
+.DS_Store
+_*/
+
+# Jupyter lab
+*.ipynb_checkpoints
+*.Trash-*
+
+# VS code
+*.vscode
+
+# pycache
+__pycache__
