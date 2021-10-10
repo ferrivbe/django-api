@@ -34,6 +34,7 @@ APPEND_SLASH = False
 
 BACKEND_APPS = [
     "api",
+    "drf_yasg",
 ]
 INSTALLED_APPS = [
     "django.contrib.auth",
@@ -208,3 +209,5 @@ LOGGING = {
         },
     },
 }
+
+SWAGGER_SETTINGS = {"USE_SESSION_AUTH": False}
