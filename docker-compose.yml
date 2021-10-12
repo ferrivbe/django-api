@@ -1,6 +1,38 @@
 version: "3.7"
 
 services:
+  nginx:
+    build:
+        context: .
+        dockerfile: src/nginx/Dockerfile
+    container_name: nginx
+    ports:
+      - 80:80
+    depends_on:
+      - backend
+    networks:
+      main:
+        aliases:
+          - nginx
+  backend:
+    build:
+      context: .
+      dockerfile: src/backend/Dockerfile
+    container_name: beckend
+    command: runserver
+    environment:
+      - DEBUG=${DEBUG:-False}
+      - APP_LOGGING_LEVEL=${APP_LOGGING_LEVEL:-WARN}
+      - DB_LOGGING_LEVEL=${DB_LOGGING_LEVEL:-WARN}
+      - PYTHONDONTWRITEBYTECODE=1
+    expose:
+      - 8000
+    depends_on:
+      - postgres
+    networks:
+      main:
+        aliases:
+          - backend
   postgres:
     image: postgres:12.4
     container_name: postgres
