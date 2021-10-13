@@ -1,12 +1,11 @@
 FROM python:3.9-slim-buster
 
-RUN python3.9 -m pip install pipenv
-
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
     # compiler for Python C modules
-    g++ make libc6-dev \
-    gunicorn
+    g++ make libc6-dev
+
+RUN python3.9 -m pip install pipenv
 
 WORKDIR /code
 COPY ./src/backend /code/backend
@@ -17,4 +16,6 @@ COPY ../Pipfile.lock /code/
 EXPOSE 8000
 
 RUN pipenv install
-ENTRYPOINT ["/code/.docker/docker-entrypoint.sh"]
+
+RUN chmod +x .docker/docker-entrypoint.sh
+ENTRYPOINT [".docker/docker-entrypoint.sh"]
