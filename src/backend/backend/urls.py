@@ -18,7 +18,8 @@ from drf_yasg import openapi
 from drf_yasg.views import get_schema_view
 from rest_framework import permissions
 
-from backend.utils.ping import ping
+from backend.utils.health import HealthView
+
 
 schema_view = get_schema_view(
     openapi.Info(
@@ -36,7 +37,7 @@ schema_view = get_schema_view(
 
 urlpatterns = [
     # ping
-    path("ping", ping, name="ping"),
+    path("health", HealthView.as_view(), name="health"),
     # docs
     path(
         "swagger",

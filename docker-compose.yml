@@ -6,6 +6,8 @@ services:
         context: .
         dockerfile: src/nginx/Dockerfile
     container_name: nginx
+    volumes:
+      - static-data:/code/collected_static
     ports:
       - 80:80
     depends_on:
@@ -19,11 +21,14 @@ services:
       context: .
       dockerfile: src/backend/Dockerfile
     container_name: beckend
+    volumes:
+      - static-data:/code/collected_static
     command: runserver
     environment:
-      - DEBUG=${DEBUG}
+      - DEBUG=False
       - APP_LOGGING_LEVEL=${APP_LOGGING_LEVEL}
       - DB_LOGGING_LEVEL=${DB_LOGGING_LEVEL}
+      - DJANGO_SETTINGS_MODULE=backend.settings
       - PYTHONDONTWRITEBYTECODE=${PYTHONDONTWRITEBYTECODE}
     expose:
       - 8000
@@ -34,10 +39,10 @@ services:
         aliases:
           - backend
   postgres:
-    image: postgres:12.4
+    image: postgres:14
     container_name: postgres
     volumes:
-      - postgres124-data:/var/lib/postgresql/data/
+      - postgres14-data:/var/lib/postgresql/data/
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
@@ -50,7 +55,8 @@ services:
           - postgres
 
 volumes:
-  postgres124-data: {}
+  postgres14-data: {}
+  static-data: {}
 
 networks:
   main:

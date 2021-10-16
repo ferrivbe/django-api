@@ -10,7 +10,8 @@ elif [[ "${1}" == "migrate-noinput" ]]; then
 elif [[ "${1}" == "collectstatic" ]]; then
     exec pipenv run python3.9 manage.py collectstatic --noinput
 elif [[ "${1}" == "runserver" ]]; then
-    exec pipenv run python3.9 manage.py makemigrations \
+    exec pipenv run python3.9 manage.py collectstatic --noinput --clear\
+        & pipenv run python3.9 manage.py makemigrations \
         & pipenv run python3.9 manage.py migrate \
         & pipenv run gunicorn backend.wsgi:application --bind 0.0.0.0:8000
 elif [[ "${1}" == "migrate" ]]; then
