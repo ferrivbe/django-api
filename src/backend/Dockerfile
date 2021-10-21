@@ -8,10 +8,10 @@ RUN apt-get update && \
 RUN python3.9 -m pip install pipenv
 
 WORKDIR /code
-COPY ./src/backend /code/backend
-COPY ../.docker /code/.docker
-COPY ../Pipfile ../.env[t] /code/
-COPY ../Pipfile.lock /code/
+COPY /src/backend /code/backend
+COPY /.docker /code/.docker
+COPY /Pipfile ../.env[t] /code/
+COPY /Pipfile.lock /code/
 
 EXPOSE 8000
 
