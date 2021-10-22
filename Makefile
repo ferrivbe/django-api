@@ -6,11 +6,11 @@ help:
 
 .PHONY: dev
 dev: ## run the project with development tools and configurations
-	@docker-compose -f docker-compose.dev.yml run --service-ports --rm backend || true
+	@docker-compose up --build
 
 .PHONY: up
 up: ## run the project
-	@docker-compose up --build
+	@docker-compose up -d --build
 
 .PHONY: stop
 stop: ## stop Docker containers without removing them
